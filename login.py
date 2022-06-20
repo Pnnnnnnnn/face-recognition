@@ -3,19 +3,24 @@ import os
 from utils.recognize_image import recognize
 
 # variable
-encoding_path = os.path.join(os.getcwd(),'users','encodings.pickle')
-tolerance = 0.4
-detection_method = 'hog'
+ENCODING_PATH = os.path.join(os.getcwd(),'users','encodings.pickle') # path of encodings file
+TOLERANCE = 0.4 # indicate how strict the match is. more strict
+DETECTION_METHOD = 'hog' # use 'hog' instead of 'cnn' to detect faces
 
-cap = cv2.VideoCapture(0)
+class Login:
+    def __init__(self):
+        pass
 
-while True:
-    _, frame = cap.read()
-    names, res = recognize(frame,encoding_path,detection_method,tolerance) # is_known contain True if program recognize one of the users
-    cv2.imshow('login',res)
-    print(names)
-    if (cv2.waitKey(1) == ord('q')):
-        break
+    def login(self):
+        cap = cv2.VideoCapture(0)
 
-cap.release()
-cv2.destroyAllWindows()
+        while True:
+            _, frame = cap.read()
+            names, res = recognize(frame,ENCODING_PATH,DETECTION_METHOD,TOLERANCE)
+            cv2.imshow('login',res)
+            print(names)
+            if (cv2.waitKey(1) == ord('q')):
+                break
+
+        cap.release()
+        cv2.destroyAllWindows()
