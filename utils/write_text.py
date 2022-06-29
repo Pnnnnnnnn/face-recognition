@@ -12,9 +12,11 @@ def regist_text(frame,number,countdown):
         4:'Please turn "left" and "smile"',
         5:'Please turn "right" and "smile"',
     }
-    x = get_center(frame,text[number],font,fontScale,thickness)
-    cv2.putText(frame,text[number],(x,frame.shape[0]//20),font,fontScale,(0,255,0),thickness)
+    x_1 = get_center(frame,text[number],font,fontScale,thickness)
+    cv2.putText(frame,text[number],(x_1,frame.shape[0]//20),font,fontScale,(0,255,0),thickness)
     cv2.putText(frame,str(countdown),(frame.shape[1]//2,frame.shape[0]//9),font,fontScale,(0,255,0),thickness)
+    x_2 = get_center(frame,"press 's' to take a picture",font,fontScale,thickness)
+    cv2.putText(frame,"press 's' to take a picture",(x_2,int(frame.shape[0]//1.05)),font,fontScale,(0,255,0),thickness)
 
 def get_center(img,text,font,fontScale,thickness):
     # get boundary of this text

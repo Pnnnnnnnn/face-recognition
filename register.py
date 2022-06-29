@@ -6,6 +6,7 @@ from utils.encode_faces import encode_face
   
 # variable
 TIMER = 3 # countdown 3 sec before capture a picture
+MAX_CAPTURED = 3
 
 #path and variable for detection process
 DIRECTORY = os.getcwd() 
@@ -68,7 +69,7 @@ class Register:
                 cv2.imwrite(str(captured)+".jpg",pic) # save a register photo
                 timer = 3
 
-            if cv2.waitKey(45) == ord("q") or (captured == 6): # stop when we take 6 photos
+            if cv2.waitKey(45) == ord("q") or (captured == MAX_CAPTURED): # stop when we take 6 photos
                 break
 
         cap.release() 
