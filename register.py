@@ -30,7 +30,7 @@ class Register:
             name = input("Enter your name: ")
             IMGFOLDER = os.path.join(DIRECTORY,'users',name)
             try: 
-                os.mkdir(IMGFOLDER) 
+                os.makedir(IMGFOLDER) 
                 break # break the loop when user name is valid (not duplicate)
             except OSError as error:
                 print(error) 
