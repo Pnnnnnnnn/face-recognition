@@ -3,6 +3,7 @@ import time
 import os
 from utils.write_text import regist_text
 from utils.encode_faces import encode_face
+from utils.sound_player import play_sound
   
 # variable
 TIMER = 3 # countdown 3 sec before capture a picture
@@ -14,7 +15,7 @@ ENCODINGPATH = os.path.join(DIRECTORY,'users','encodings.pickle') # path to enco
 USERSFOLDER = os.path.join(DIRECTORY,'users') # users images directory
 IMGFOLDER = ""
 DETECTIONMETHOD = 'hog' # use 'hog' instead of 'cnn' to detect faces
-
+SOUNDSFOLDER = os.path.join(DIRECTORY,'sounds')
 
 class Register:
     
@@ -47,10 +48,12 @@ class Register:
             k = cv2.waitKey(45)
  
             # set the key for the countdown to begin. Here we set s
-            if (k == ord('s')) and (captured < 6):
+            if (k == ord('s')) and (captured < MAX_CAPTURED):
                 start = time.time()
+                play_sound(os.path.join(SOUNDSFOLDER,'countdown.wav'))
                 while timer > 0:
                     _, frame = cap.read()
+
                     regist_text(frame,captured,timer)
                     cv2.imshow('Register',frame)
                     cv2.waitKey(45)

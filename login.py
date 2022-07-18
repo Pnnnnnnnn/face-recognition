@@ -12,6 +12,7 @@ class Login:
         pass
 
     def login(self):
+        login_complete = False
         cap = cv2.VideoCapture(0)
 
         while True:
@@ -19,7 +20,16 @@ class Login:
             names, res = recognize(frame,ENCODING_PATH,DETECTION_METHOD,TOLERANCE)
             cv2.imshow('login',res)
             print(names)
-            if (cv2.waitKey(1) == ord('q')):
+            for name in names:
+                cv2.destroyAllWindows()
+                if(name == 'Unknown'):
+                    continue
+                answer = (input("Are you {} (y/n)".format(name)).lower() == 'y')
+                if answer: # User is matched
+                    print("Welcome {}".format(name))
+                    login_complete = True
+                    break
+            if (cv2.waitKey(1) == ord('q') or login_complete):
                 break
 
         cap.release()
