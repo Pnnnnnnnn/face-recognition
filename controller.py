@@ -17,6 +17,6 @@ while not is_exit:
     else:
         is_exit = True
         
-print("Bye for now :)")
+print("See you soon :)")
         
 
