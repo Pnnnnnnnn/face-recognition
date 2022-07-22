@@ -2,19 +2,21 @@ from login import Login
 from register import Register
 
 # variable
-is_finished = False # store stage of this program
-is_login = False # store true if user want to register
+is_exit = False # store stage of this program
 
 # instance of class
 L = Login()
 R = Register()
 
-while not is_login:
-    temp = input('Register press "1"\nLogin press "2"\n')
-    is_login = (temp == "2")
-    if(not is_login):
+while not is_exit:
+    operation = input('Register press "1"\nLogin press "2"\nExit program press "3"\n')
+    if operation == "1":
         R.register()
-L.login()
-
+    elif operation == "2":
+        L.login()
+    else:
+        is_exit = True
+        
+print("Bye for now :)")
         
 

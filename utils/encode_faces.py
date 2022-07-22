@@ -15,8 +15,8 @@ def encode_face(dataset,encodings_path,detection_method):
 	# loop over the image paths
 	for (i, imagePath) in enumerate(imagePaths):
 		# extract the person name from the image path
-		print("[INFO] processing image {}/{}".format(i + 1,
-			len(imagePaths)))
+		print("\r[INFO] processing image {}/{}".format(i + 1,
+			len(imagePaths)), end="") # Update processing status in one line
 		name = imagePath.split(os.path.sep)[-2]
 		# load the input image and convert it from BGR (OpenCV ordering)
 		# to dlib ordering (RGB)
@@ -35,7 +35,7 @@ def encode_face(dataset,encodings_path,detection_method):
 			knownNames.append(name)
         
 	# dump the facial encodings + names to disk
-	print("[INFO] serializing encodings...")
+	print("\n[INFO] serializing encodings...")
 	data = {"encodings": knownEncodings, "names": knownNames}
 	f = open(encodings_path, "wb")
 	f.write(pickle.dumps(data))

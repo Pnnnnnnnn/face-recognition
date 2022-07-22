@@ -1,18 +1,13 @@
 # import the necessary packages
 import face_recognition
-import pickle
 import cv2
 
-def recognize(frame,encoding_path,detection_method='hog',tolerance = 0.6):
-	# load the known faces and embeddings
-	print("[INFO] loading encodings...")
-	data = pickle.loads(open(encoding_path, "rb").read())
+def recognize(frame,data_pickle,detection_method='hog',tolerance = 0.6):
 	rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
 	# detect the (x, y)-coordinates of the bounding boxes corresponding
 	# to each face in the input image, then compute the facial embeddings
 	# for each face
-	print("[INFO] recognizing faces...")
 	boxes = face_recognition.face_locations(rgb,
 		model=detection_method)
 	encodings = face_recognition.face_encodings(rgb, boxes)
@@ -24,7 +19,7 @@ def recognize(frame,encoding_path,detection_method='hog',tolerance = 0.6):
 	for encoding in encodings:
 		# attempt to match each face in the input image to our known
 		# encodings
-		matches = face_recognition.compare_faces(data["encodings"], 
+		matches = face_recognition.compare_faces(data_pickle["encodings"], 
 			encoding,tolerance) #return the list of boolean (len(matches)=#all dataset images)
 		name = "Unknown"
 
@@ -38,7 +33,7 @@ def recognize(frame,encoding_path,detection_method='hog',tolerance = 0.6):
 			# loop over the matched indexes and maintain a count for
 			# each recognized face face
 			for i in matchedIdxs:
-				name = data["names"][i]
+				name = data_pickle["names"][i]
 				counts[name] = counts.get(name, 0) + 1
 			# determine the recognized face with the largest number of
 			# votes (note: in the event of an unlikely tie Python will
